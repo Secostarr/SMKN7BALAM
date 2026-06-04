@@ -1,3 +1,30 @@
+/*
+ * KONSEP WARNA & FILOSOFINYA
+ * SMKN 7 Bandar Lampung
+ * 
+ * Emas Siger (#ECB65F) & Kuning Pastel (#F0E76F)
+ * Penggunaan: Dua warna ini ditaruh di bagian-bagian penting yang butuh sorotan utama,
+ * misalnya untuk tombol aksi (seperti simpan transaksi atau login) dan latar belakang kartu.
+ * Filosofinya: Warna ini diambil langsung dari warna Siger, mahkota adat kebanggaan masyarakat Lampung.
+ * Penggunaannya bikin identitas lokal sekolah langsung terasa kuat. Selain itu, warna emas melambangkan
+ * kejayaan dan prestasi, sedangkan kuning melambangkan optimisme dan kreativitas.
+ * Ini pas banget untuk mencerminkan visi SMK dalam mencetak "Generasi Emas" yang siap kerja dan punya daya saing tinggi.
+ * 
+ * Hijau Sage (#A5CF83) & Hijau Tua
+ * Penggunaan: Nuansa hijau ini mendominasi elemen pendukung visual, seperti teks judul,
+ * ikon kategori, garis pembatas, hingga grafik indikator.
+ * Filosofinya: Hijau itu identik dengan pertumbuhan (growth), kesegaran, dan keharmonisan.
+ * Di lingkungan sekolah, warna ini menyimbolkan tempat bagi para siswa untuk bertumbuh,
+ * baik dari segi wawasan maupun karakter budi pekerti yang luhur.
+ * Hijau juga memberikan kesan sekolah yang asri dan peduli lingkungan.
+ * 
+ * Putih & Abu-abu Terang (Earth Tone)
+ * Penggunaan: Dipakai sebagai warna dasar latar belakang aplikasi dan kotak-kotak konten utama.
+ * Filosofinya: Memberikan ruang bernapas (white space) pada desain agar layout tidak terasa penuh sesak.
+ * Kesan bersih dan netral ini bikin mata pengunjung nyaman dan bisa langsung fokus membaca informasi penting
+ * tanpa terdistraksi.
+ */
+
 *{
     margin:0;
     padding:0;
@@ -5,13 +32,20 @@
 }
 
 :root{
+    /* Emas Siger - Warna utama untuk elemen penting (tombol, aksi utama) */
     --primary:#ECB65F;
+    /* Kuning Pastel - Warna sekunder untuk latar belakang kartu */
     --secondary:#F0E76F;
+    /* Hijau Sage - Warna aksen untuk judul, ikon, garis pembatas */
     --accent:#A5CF83;
+    /* Warna teks utama */
     --dark:#212529;
+    /* Warna latar belakang (Earth Tone) */
     --light:#f8f9fa;
+    /* Gradient untuk elemen visual */
     --gradient-primary:linear-gradient(135deg, #ECB65F 0%, #A5CF83 100%);
     --gradient-secondary:linear-gradient(135deg, #F0E76F 0%, #ECB65F 100%);
+    /* Soft Shadows - Memberikan dimensi kedalaman visual */
     --shadow-sm:0 2px 8px rgba(0,0,0,0.08);
     --shadow-md:0 4px 16px rgba(0,0,0,0.12);
     --shadow-lg:0 8px 32px rgba(0,0,0,0.16);
@@ -19,7 +53,9 @@
 }
 
 body{
-    font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+    /* Plus Jakarta Sans - Font modern, bersih, dan rapi untuk menunjukkan institusi yang maju dan profesional */
+    font-family:'Plus Jakarta Sans','Segoe UI',system-ui,-apple-system,sans-serif;
+    /* Earth Tone background - Memberikan ruang bernapas agar layout tidak terasa penuh sesak */
     background:linear-gradient(180deg, #F0E76F 0%, #fff 100%);
     color:#333;
     line-height:1.6;
@@ -29,6 +65,24 @@ body{
 html{
     scroll-behavior:smooth;
 }
+
+/*
+ * TATA LETAK & BENTUK VISUAL
+ * 
+ * Sudut Melengkung (Rounded Corners)
+ * Penggunaan: Semua sudut pada tombol, kotak input, dan kartu informasi dibuat melengkung halus,
+ * tidak ada sudut lancip yang tajam.
+ * Filosofinya: Secara psikologis, bentuk yang melengkung memberikan kesan yang lebih luwes,
+ * aman, dan bersahabat. Tujuannya sengaja untuk membuang kesan kaku, dingin, atau terlalu formal
+ * yang biasanya sering melekat pada sistem informasi sekolah.
+ * 
+ * Bayangan Halus (Soft Shadows)
+ * Penggunaan: Efek bayangan tipis diaplikasikan pada elemen-elemen penting seperti kotak login
+ * atau menu navigasi bawah agar terlihat agak timbul.
+ * Filosofinya: Efek ini memberikan dimensi kedalaman visual yang mempertegas hierarki halaman.
+ * Pengguna jadi tahu bagian mana yang menjadi prioritas utama, sehingga navigasi di dalam website
+ * terasa lebih alami dan gampang dipahami tanpa perlu mikir keras.
+ */
 
 /* ANIMATIONS */
 

@@ -124,6 +124,33 @@ html{
     }
 }
 
+/* floating subtle motion for icons/cards */
+@keyframes floaty{
+    0%{ transform: translateY(0px) }
+    50%{ transform: translateY(-8px) }
+    100%{ transform: translateY(0px) }
+}
+
+/* small shimmer for hero title */
+@keyframes shimmer{
+    0%{ background-position: -200% 0 }
+    100%{ background-position: 200% 0 }
+}
+
+/* ripple effect for buttons */
+@keyframes rippleAnim{
+    0%{ transform: scale(0); opacity:0.6 }
+    100%{ transform: scale(2.5); opacity:0 }
+}
+
+/* icon micro-bounce */
+@keyframes iconBounce{
+    0%{ transform: translateY(0) }
+    30%{ transform: translateY(-6px) }
+    60%{ transform: translateY(-3px) }
+    100%{ transform: translateY(0) }
+}
+
 .animate-fadeInUp{
     animation:fadeInUp 0.6s ease-out forwards;
 }
@@ -135,6 +162,64 @@ html{
 .animate-pulse{
     animation:pulse 2s infinite;
 }
+
+/* new utility animations */
+.animate-floaty{
+    animation:floaty 6s ease-in-out infinite;
+}
+
+.shimmer-title{
+    background: linear-gradient(90deg, rgba(255,255,255,0.0) 0%, rgba(255,255,255,0.45) 50%, rgba(255,255,255,0.0) 100%);
+    background-size:200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color:transparent;
+    animation:shimmer 2.5s linear infinite;
+}
+
+/* button ripple container */
+#btnDaftar{
+    position:relative;
+    overflow:hidden;
+}
+
+.ripple{
+    position:absolute;
+    border-radius:50%;
+    background:rgba(255,255,255,0.75);
+    width:10px;
+    height:10px;
+    transform:scale(0);
+    pointer-events:none;
+    animation:rippleAnim 700ms ease-out forwards;
+}
+
+/* icon subtle motion */
+.card i, .stat-box h3{
+    will-change:transform;
+}
+
+.card i{
+    animation:iconBounce 6s ease-in-out infinite;
+}
+
+/* apply floaty to select larger icons for a lively feeling */
+@media(min-width:768px){
+    .card i{ animation:floaty 6s ease-in-out infinite; }
+}
+
+/* number style for counting */
+.stat-box h3{
+    transition:transform 0.4s ease;
+}
+
+/* subtle transform on reveal */
+.animate-reveal{
+    transform-origin:center;
+}
+
+/* keep existing classes compatible with new effects */
+.animate-fadeInUp, .animate-fadeIn, .animate-pulse{ will-change: opacity, transform }
 
 .container{
     width:90%;
@@ -716,4 +801,52 @@ footer p{
     blockquote p{
         font-size:1rem;
     }
+}
+
+/* SCROLL-BASED VISUALS */
+
+/* Progress bar at top to indicate scroll position */
+.progress-container{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:4px;
+    z-index:2000;
+    pointer-events:none;
+    background:transparent;
+}
+
+.progress-bar{
+    width:0%;
+    height:100%;
+    background:linear-gradient(90deg,var(--accent),var(--primary));
+    transition:width 120ms linear;
+}
+
+/* Slide in from left / right for sections */
+@keyframes slideInLeft{
+    from{ opacity:0; transform:translateX(-30px); }
+    to{ opacity:1; transform:translateX(0); }
+}
+
+@keyframes slideInRight{
+    from{ opacity:0; transform:translateX(30px); }
+    to{ opacity:1; transform:translateX(0); }
+}
+
+.slide-in-left{ animation:slideInLeft 0.75s cubic-bezier(0.22,1,0.36,1) forwards; }
+.slide-in-right{ animation:slideInRight 0.75s cubic-bezier(0.22,1,0.36,1) forwards; }
+
+/* simple fade + move for initial hidden sections */
+.scroll-fade{ opacity:0; transform:translateY(20px); transition:opacity 0.6s ease, transform 0.6s ease; }
+.scroll-revealed{ opacity:1; transform:translateY(0); }
+
+/* parallax hint for sections (JS will use translateY for smoother mobile behavior) */
+.parallax{ background-size:cover; background-position:center; }
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .slide-in-left, .slide-in-right, .animate-floaty, .animate-pulse, .shimmer-title { animation:none !important; }
+  .progress-bar{ transition:none !important; }
 }

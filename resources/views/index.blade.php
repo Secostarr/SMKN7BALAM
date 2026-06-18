@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ asset('icon.svg') }}" type="image/svg"/>
     <title>SMKN 7 Bandar Lampung</title>
 
     <!-- Plus Jakarta Sans - Font modern, bersih, dan rapi untuk menunjukkan institusi yang maju dan profesional -->
@@ -20,7 +21,7 @@
 <nav class="bg-primary text-gray-900 shadow-md fixed w-full z-10 top-0" id="navbar">
     <div class="container mx-auto px-6 py-4 flex justify-between items-center">
         <div class="text-2xl font-bold">
-            SMKN 7 Bandar Lampung
+            <a id="scrollTopBtn">SMKN 7 Bandar Lampung</a>
         </div>
 
         <!-- Mobile Menu Button -->
@@ -63,8 +64,8 @@
             Unggul dalam Prestasi, Siap Kerja, Kreatif dan Berkarakter.
         </p>
 
-        <button id="btnDaftar" class="bg-primary text-gray-900 px-8 py-3 rounded-full font-bold hover:bg-accent transition shadow-lg">
-            Daftar Sekarang
+        <button id="scrlDwn" class="bg-primary text-gray-900 px-8 py-3 rounded-full font-bold hover:bg-accent transition shadow-lg">
+            Jelajahi
         </button>
 
     </div>
@@ -278,19 +279,53 @@
 
 </section>
 
-<section id="testimoni" class="py-20 bg-primary text-gray-900 text-center">
+@if(isset($news) && $news->count())
+<section id="berita" class="py-20 bg-white">
+  <div class="container mx-auto px-6">
+    <h2 class="text-3xl font-bold mb-8 text-primary">Berita & Pengumuman</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+      @foreach($news as $item)
+      <div class="bg-gray-50 p-6 rounded-lg shadow">
+        <h3 class="text-xl font-semibold mb-2">{{ $item->title }}</h3>
+        <p class="text-gray-600 mb-3">{{ \Illuminate\Support\Str::limit(strip_tags($item->content), 150) }}</p>
+        @if($item->image)
+            <img src="{{ asset('storage/' . $item->image) }}" alt="berita" class="w-full h-40 object-cover mb-3 rounded">
+        @endif
+        <p class="text-sm text-gray-500">{{ \Illuminate\Support\Carbon::parse($item->published_at ?? $item->created_at)->format('d M Y') }}</p>
+      </div>
+      @endforeach
+    </div>
+  </div>
+</section>
+@endif
 
+<section id="testimoni" class="py-20 bg-primary text-gray-900 text-center">
     <div class="container mx-auto px-6">
         <h2 class="text-3xl font-bold mb-10">Testimoni Alumni</h2>
 
-        <blockquote>
-            <p>"SMKN 7 Bandar Lampung memberikan pengalaman belajar
-            yang sangat membantu saya ketika memasuki dunia kerja."</p>
-        
-            <strong>- Alumni SMKN 7</strong>
-        </blockquote>
-    </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            @forelse($testimonials as $testi)
+                <blockquote class="bg-white p-8 rounded-xl shadow-lg relative">
+                    <span class="absolute top-4 left-6 text-4xl text-gray-200 font-serif">"</span>
+                    
+                    <p class="text-gray-700 italic relative z-10 mb-6 mt-4">
+                        "{{ $testi->content }}"
+                    </p>
+                    
+                    <div>
+                        <strong class="block text-gray-900 font-bold text-lg">{{ $testi->name }}</strong>
+                        @if($testi->role)
+                            <span class="text-sm text-gray-500">{{ $testi->role }}</span>
+                        @endif
+                    </div>
+                </blockquote>
+            @empty
+                <p class="text-white col-span-full">Belum ada testimoni.</p>
+            @endforelse
 
+        </div>
+    </div>
 </section>
 
 <section id="kontak" class="py-20 bg-gray-50">
@@ -369,9 +404,45 @@
             }
         });
     });
+
+        const scrollDwn = document.getElementById("scrlDwn");
+
+    scrollDwn.addEventListener("click", () => {
+    // Cari elemen dengan ID "hero"
+    const heroSection = document.getElementById("tentang");
+    
+    // Scroll mulus ke elemen tersebut
+    heroSection.scrollIntoView({
+        behavior: "smooth"
+    });
+});
 </script>
 
 <script src="{{ asset('js/script.js') }}"></script>
+
+<button id="scrollTopBtn" class="btn-scroll-top" title="Kembali ke atas">
+    ↑
+</button>
+
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+    const scrollBtn = document.getElementById("scrollTopBtn");
+
+    window.addEventListener("scroll", () => {
+        if (window.scrollY > 300) {
+            scrollBtn.classList.add("show");
+        } else {
+            scrollBtn.classList.remove("show");
+        }
+    });
+
+    scrollBtn.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+});
+</script>
 
 </body>
 </html>

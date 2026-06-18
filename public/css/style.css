@@ -228,83 +228,6 @@ html{
     padding:0 20px;
 }
 
-/* NAVBAR */
-
-nav{
-    position:fixed;
-    width:100%;
-    top:0;
-    z-index:1000;
-    background:var(--primary);
-    box-shadow:var(--shadow-md);
-    backdrop-filter:blur(10px);
-    transition:all 0.3s ease;
-}
-
-nav.scrolled{
-    background:rgba(236,182,95,0.95);
-    box-shadow:var(--shadow-lg);
-}
-
-.nav-container{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:20px 0;
-}
-
-.logo{
-    font-weight:bold;
-    font-size:1.5rem;
-    color:var(--dark);
-    text-decoration:none;
-    transition:color 0.3s ease;
-}
-
-.logo:hover{
-    color:var(--dark);
-}
-
-nav ul{
-    display:flex;
-    list-style:none;
-    gap:30px;
-}
-
-nav ul li{
-    margin:0;
-}
-
-nav ul li a{
-    text-decoration:none;
-    color:var(--dark);
-    font-weight:600;
-    font-size:1rem;
-    position:relative;
-    padding:5px 0;
-    transition:color 0.3s ease;
-}
-
-nav ul li a::after{
-    content:'';
-    position:absolute;
-    bottom:0;
-    left:0;
-    width:0;
-    height:2px;
-    background:var(--accent);
-    transition:width 0.3s ease;
-}
-
-nav ul li a:hover::after{
-    width:100%;
-}
-
-nav ul li a:hover{
-    color:var(--accent);
-}
-
-/* HERO */
 
 #hero{
     min-height:100vh;
@@ -339,7 +262,7 @@ nav ul li a:hover{
     left:0;
     right:0;
     bottom:0;
-    background:url('https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1600&q=80');
+    background:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNeCM5xQ_zom3eFF4h6J_ICBzRIyTIkIIvYQ&s');
     background-size:cover;
     background-position:center;
     opacity:0.15;
@@ -726,7 +649,7 @@ footer p{
     }
 
     blockquote{
-        padding:34px 24px;
+        padding:34px 25px;
     }
 
     blockquote::before{
@@ -849,4 +772,115 @@ footer p{
 @media (prefers-reduced-motion: reduce){
   .slide-in-left, .slide-in-right, .animate-floaty, .animate-pulse, .shimmer-title { animation:none !important; }
   .progress-bar{ transition:none !important; }
+}
+/* NAVBAR */
+
+nav{
+    position:fixed;
+    width:100%;
+    top:0;
+    z-index:1000;
+    background:var(--primary);
+    box-shadow:var(--shadow-md);
+    backdrop-filter:blur(10px);
+    transition:all 0.3s ease;
+}
+
+nav.scrolled{
+    background:rgba(236,182,95,0.95);
+    box-shadow:var(--shadow-lg);
+}
+
+.nav-container{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 0;
+}
+
+.logo{
+    font-weight:bold;
+    font-size:1.5rem;
+    color:var(--dark);
+    text-decoration:none;
+    transition:color 0.3s ease;
+}
+
+.logo:hover{
+    color:var(--dark);
+}
+
+nav ul{
+    display:flex;
+    list-style:none;
+    gap:30px;
+}
+
+nav ul li{
+    margin:0;
+}
+
+nav ul li a{
+    text-decoration:none;
+    color:var(--dark);
+    font-weight:600;
+    font-size:1rem;
+    position:relative;
+    padding:5px 0;
+    transition:color 0.3s ease;
+}
+
+nav ul li a::after{
+    content:'';
+    position:absolute;
+    bottom:0;
+    left:0;
+    width:0;
+    height:2px;
+    background:var(--accent);
+    transition:width 0.3s ease;
+}
+
+nav ul li a:hover::after{
+    width:100%;
+}
+
+nav ul li a:hover{
+    color:var(--accent);
+}
+
+/* HERO */
+
+/* SCRL BTN */
+.btn-scroll-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: var(--primary, #ECB65F);
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 99999 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    /* Tombol disembunyikan pakai cara ini */
+    /* opacity: 0;
+    pointer-events: none; Biar gak bisa diklik pas lagi gak muncul */
+    transition: opacity 0.3s ease;
+}
+
+/* Pas JS nambahin class 'show' */
+.btn-scroll-top.show {
+    opacity: 1 !important;
+    pointer-events: auto !important; 
+}
+
+/* Efek pas disorot mouse */
+.btn-scroll-top:hover {
+    background-color: var(--dark, #212529);
+    color: var(--primary, #ECB65F);
+    transform: translateY(-5px);
 }

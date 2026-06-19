@@ -857,25 +857,30 @@ nav ul li a:hover{
     bottom: 30px;
     right: 30px;
     background-color: var(--primary, #ECB65F);
+    color: var(--dark, #212529);
     width: 45px;
     height: 45px;
+    border: 0;
     border-radius: 50%;
     cursor: pointer;
     z-index: 99999 !important;
     display: flex;
     align-items: center;
     justify-content: center;
-    
-    /* Tombol disembunyikan pakai cara ini */
-    /* opacity: 0;
-    pointer-events: none; Biar gak bisa diklik pas lagi gak muncul */
-    transition: opacity 0.3s ease;
+    font-size: 1.35rem;
+    font-weight: 800;
+    line-height: 1;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Pas JS nambahin class 'show' */
 .btn-scroll-top.show {
     opacity: 1 !important;
     pointer-events: auto !important; 
+    transform: translateY(0);
 }
 
 /* Efek pas disorot mouse */

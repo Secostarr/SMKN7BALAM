@@ -2,16 +2,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const btnDaftar = document.getElementById('btnDaftar');
 
-    btnDaftar.addEventListener('click', (e) => {
+    if (btnDaftar) {
+        btnDaftar.addEventListener('click', (e) => {
 
-        // ripple effect
-        createRipple(e, btnDaftar);
+            // ripple effect
+            createRipple(e, btnDaftar);
 
-        alert(
-            'Terima kasih telah tertarik bergabung dengan SMKN 7 Bandar Lampung. Halaman pendaftaran akan segera tersedia.'
-        );
+            alert(
+                'Terima kasih telah tertarik bergabung dengan SMKN 7 Bandar Lampung. Halaman pendaftaran akan segera tersedia.'
+            );
 
-    });
+        });
+    }
 
     const links = document.querySelectorAll('nav a');
 
@@ -19,11 +21,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         link.addEventListener('click', function(e){
 
-            e.preventDefault();
+            const href = this.getAttribute('href');
+            if (!href || !href.startsWith('#')) return;
 
-            const target = document.querySelector(
-                this.getAttribute('href')
-            );
+            const target = document.querySelector(href);
+
+            if (!target) return;
+
+            e.preventDefault();
 
             target.scrollIntoView({
                 behavior:'smooth'

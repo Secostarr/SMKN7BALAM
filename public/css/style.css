@@ -867,8 +867,8 @@ nav ul li a:hover{
     justify-content: center;
     
     /* Tombol disembunyikan pakai cara ini */
-    /* opacity: 0;
-    pointer-events: none; Biar gak bisa diklik pas lagi gak muncul */
+    opacity: 0;
+    pointer-events: none;
     transition: opacity 0.3s ease;
 }
 

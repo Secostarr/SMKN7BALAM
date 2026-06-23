@@ -13,6 +13,7 @@ Route::get('/', [WebsiteController::class, "index"])->name('index');
 // Login routes for dashboard
 Route::get('dashboard/login', [AuthController::class, 'showLogin'])->name('dashboard.login');
 Route::post('dashboard/login', [AuthController::class, 'login'])->name('dashboard.login.post');
+Route::post('/contact-send', [\App\Http\Controllers\ContactController::class, 'send'])->name('contact.send');
 
 
 // Protected dashboard routes (Wajib Login)

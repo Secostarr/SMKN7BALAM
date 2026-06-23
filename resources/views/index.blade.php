@@ -330,31 +330,20 @@
 
 <section id="kontak" class="py-20 bg-gray-50">
 
-    <div class="container mx-auto px-6 text-center">
-        <h2 class="text-3xl font-bold mb-10 text-primary">Hubungi Kami</h2>
-
-        <div class="flex flex-col md:flex-row justify-center items-center flex-wrap gap-4">
-            <div class="contact-item">
-                <i class="fas fa-location-dot text-2xl"></i>
-                <span>Jl. Pendidikan, Sukarame Baru, Bandar Lampung</span>
-            </div>
-
-            <div class="contact-item">
-                <i class="fas fa-envelope text-2xl"></i>
-                <span>smkn7bandarlampung@yahoo.co.id</span>
-            </div>
-
-            <div class="contact-item">
-                <i class="fas fa-globe text-2xl"></i>
-                <span>www.smkn7bandarlampung.sch.id</span>
-            </div>
-
-            <div class="contact-item">
-                <i class="fas fa-fax text-2xl"></i>
-                <span>(0721) 56010689</span>
-            </div>
+    <div class="mt-12 max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-lg">
+    <form action="{{ route('contact.send') }}" method="POST">
+        @csrf
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <input type="text" name="name" placeholder="Nama Lengkap" class="w-full p-3 border rounded-lg" required>
+            <input type="email" name="email" placeholder="Email Anda" class="w-full p-3 border rounded-lg" required>
         </div>
-    </div>
+        <input type="text" name="subject" placeholder="Subjek" class="w-full p-3 border rounded-lg mb-4" required>
+        <textarea name="message" rows="5" placeholder="Pesan Anda" class="w-full p-3 border rounded-lg mb-4" required></textarea>
+        <button type="submit" class="w-full bg-primary text-white py-3 rounded-lg font-bold hover:bg-yellow-600 transition">
+            Kirim Pesan
+        </button>
+    </form>
+</div>
 
 </section>
 
@@ -430,13 +419,13 @@
     document.addEventListener("DOMContentLoaded", function() {
     const scrollBtn = document.getElementById("scrollTopBtn");
 
-    window.addEventListener("scroll", () => {
-        if (window.scrollY > 300) {
-            scrollBtn.classList.add("show");
-        } else {
-            scrollBtn.classList.remove("show");
-        }
-    });
+    // window.addEventListener("scroll", () => {
+    //     if (window.scrollY > 300) {
+    //         scrollBtn.classList.add("show");
+    //     } else {
+    //         scrollBtn.classList.remove("show");
+    //     }.
+    // });
 
     scrollBtn.addEventListener("click", () => {
         window.scrollTo({ top: 0, behavior: "smooth" });

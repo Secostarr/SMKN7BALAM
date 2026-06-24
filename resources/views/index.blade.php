@@ -330,27 +330,48 @@
 
 <section id="kontak" class="py-20 bg-gray-50">
 
-    <div class="mt-12 max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-lg">
-    <form action="{{ route('contact.send') }}" method="POST">
-        @csrf
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-            <input type="text" name="name" placeholder="Nama Lengkap" class="w-full p-3 border rounded-lg" required>
-            <input type="email" name="email" placeholder="Email Anda" class="w-full p-3 border rounded-lg" required>
+   <div class="mt-12 max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-lg">
+    <form action="mailto:smkn7bandarlampung@yahoo.co.id" method="POST" enctype="text/plain">
+        
+        <div class="mb-4">
+            <label class="block text-gray-700 font-bold mb-2">Nama</label>
+            <input type="text" name="name" class="w-full p-3 border rounded-lg" required>
         </div>
-        <input type="text" name="subject" placeholder="Subjek" class="w-full p-3 border rounded-lg mb-4" required>
-        <textarea name="message" rows="5" placeholder="Pesan Anda" class="w-full p-3 border rounded-lg mb-4" required></textarea>
+
+        <div class="mb-4">
+            <label class="block text-gray-700 font-bold mb-2">Pesan</label>
+            <textarea name="message" rows="5" class="w-full p-3 border rounded-lg" required></textarea>
+        </div>
+
         <button type="submit" class="w-full bg-primary text-white py-3 rounded-lg font-bold hover:bg-yellow-600 transition">
-            Kirim Pesan
+            Kirim via Email Saya
         </button>
     </form>
-</div>
+    </div>
 
 </section>
 
 <footer class="bg-gray-800 text-gray-400 py-8 text-center">
     <p>
-        © 2026 SMKN 7 Bandar Lampung
+        © 2026 SMKN 7 Bandar Lampung 
+
     </p>
+     <div class="container mx-auto px-6 text-center">
+        
+        <div class="flex justify-center items-center gap-8">
+            <a href="https://instagram.com/smkn7bandarlampung" target="_blank" class="hover:text-primary transition text-3xl">
+                <i class="fab fa-instagram"></i>
+            </a>
+            
+            <a href="https://facebook.com/smkn7bandarlampung" target="_blank" class="hover:text-primary transition text-3xl">
+                <i class="fab fa-facebook"></i>
+            </a>
+            
+            <a href="https://youtube.com/@tujuhtv3610" target="_blank" class="hover:text-primary transition text-3xl">
+                <i class="fab fa-youtube"></i>
+            </a>
+        </div>
+    </div>
 </footer>
 
 <script>
@@ -414,24 +435,6 @@
 </button>
 
 
-<script>
-
-    document.addEventListener("DOMContentLoaded", function() {
-    const scrollBtn = document.getElementById("scrollTopBtn");
-
-    // window.addEventListener("scroll", () => {
-    //     if (window.scrollY > 300) {
-    //         scrollBtn.classList.add("show");
-    //     } else {
-    //         scrollBtn.classList.remove("show");
-    //     }.
-    // });
-
-    scrollBtn.addEventListener("click", () => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-});
-</script>
 
 </body>
 </html>

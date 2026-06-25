@@ -79,12 +79,12 @@
         <div class="stats">
 
             <div class="stat-box">
-                <h3>958</h3>
+                <h3>1000+</h3>
                 <p class="text-gray-700 font-medium">Siswa</p>
             </div>
 
             <div class="stat-box">
-                <h3>50+</h3>
+                <h3>100+</h3>
                 <p class="text-gray-700 font-medium">Guru</p>
             </div>
 

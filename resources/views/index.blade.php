@@ -6,11 +6,6 @@
     <link rel="icon" href="{{ asset('icon.svg') }}" type="image/svg"/>
     <title>SMKN 7 Bandar Lampung</title>
 
-    <!-- Plus Jakarta Sans - Font modern, bersih, dan rapi untuk menunjukkan institusi yang maju dan profesional -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -21,7 +16,7 @@
 <nav class="bg-primary text-gray-900 shadow-md fixed w-full z-10 top-0" id="navbar">
     <div class="container mx-auto px-6 py-4 flex justify-between items-center">
         <div class="text-2xl font-bold">
-            <a href="#hero">SMKN 7 Bandar Lampung</a>
+            <a id="navBrand" href="#">SMKN 7 Bandar Lampung</a>
         </div>
 
         <!-- Mobile Menu Button -->
@@ -84,12 +79,12 @@
         <div class="stats">
 
             <div class="stat-box">
-                <h3>958</h3>
+                <h3>1000+</h3>
                 <p class="text-gray-700 font-medium">Siswa</p>
             </div>
 
             <div class="stat-box">
-                <h3>50+</h3>
+                <h3>100+</h3>
                 <p class="text-gray-700 font-medium">Guru</p>
             </div>
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -15,44 +16,32 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $data = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|string'
+            'email'    => 'required|email',
+            'password' => 'required|string',
         ]);
 
-        // Try database users first
-        $user = \App\Models\User::where('email', $data['email'])->first();
-        if ($user && \Illuminate\Support\Facades\Hash::check($data['password'], $user->password)) {
-            // only allow admin role
-            if (isset($user->role) && $user->role === 'admin') {
-                session(['is_admin' => true, 'user_id' => $user->id]);
-                
-                auth()->login($user); 
-                
+        if (Auth::attempt(['email' => $data['email'], 'password' => $data['password']])) {
+            $user = Auth::user();
+
+            if ($user->role === 'admin') {
+                $request->session()->regenerate();
                 return redirect()->route('dashboard.index');
             }
+
+            Auth::logout();
+            return back()->withErrors(['email' => 'Anda tidak memiliki akses ke dashboard']);
         }
 
-        // Fallback to env admin (backwards compatibility)
-        $adminEmail = env('ADMIN_EMAIL');
-        $adminPass = env('ADMIN_PASSWORD');
-
-        if ($data['email'] === $adminEmail && $data['password'] === $adminPass) {
-            session(['is_admin' => true]);
-            return redirect()->route('dashboard.index');
-        }
-
-        return back()->withErrors(['email' => 'Kredensial salah']);
+        return back()->withErrors(['email' => 'Kredensial tidak valid']);
     }
 
     public function logout(Request $request)
     {
-        // Logout dari sistem bawaan Laravel
-        auth()->logout(); 
+        Auth::logout();
         
-        // Hancurkan semua session dan buat token CSRF baru (Paling Aman)
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('dashboard.login');
+        return redirect()->route('index');
     }
 }

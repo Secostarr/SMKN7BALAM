@@ -1,83 +1,73 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Dashboard Admin - SMKN 7 Bandar Lampung</title>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
-</head>
-<body class="dashboard-page">
+@extends('dashboard.layouts.app')
 
-    <nav>
-        <div class="container nav-container">
-            <a href="/" class="logo">SMKN 7 Bandar Lampung</a>
-            <ul>
-                <li><a href="/" style="color: var(--dark);">Lihat Website</a></li>
-                <li>
-                    <form action="/logout" method="POST" style="display:inline;">
-                        @csrf
-                        <button type="submit" class="btn-logout">Logout</button>
-                    </form>
-                </li>
-            </ul>
-        </div>
-    </nav>
+@section('title', 'Kelola Berita')
+@section('page_title', 'Kelola Berita')
 
-    <div class="dashboard-wrapper">
-        <div class="dashboard-layout">
+@section('content')
 
-            <main class="dashboard-main">
-                
-                <div style="background: linear-gradient(135deg, var(--primary, #f6b64d) 0%, #eab308 100%); border-radius: 12px; padding: 2rem; color: var(--dark); margin-bottom: 2rem; box-shadow: var(--shadow-md);">
-                    <h1 style="font-size: 2rem; margin-bottom: 0.5rem; font-weight: 800;">Selamat Datang di Kelola Berita</h1>
-                    <p style="font-size: 1.1rem; opacity: 0.9;">Kelola konten situs, berita, dan pengumuman sekolah dari sini dengan mudah.</p>
-                </div>
 
-                <div class="mt-6 panel">
-                    <div class="flex" style="justify-content:space-between;align-items:center;margin-bottom:12px;">
-                        <h3 style="margin:0">Daftar Berita</h3>
-                        <a href="{{ route('dashboard.news.create') }}" class="btn-primary">Buat Berita Baru</a>
-                    </div>
-
-                    <table class="table-dashboard">
-                        <thead>
-                            <tr>
-                                <th>Gambar</th>
-                                <th>Judul</th>
-                                <th>Tanggal Terbit</th>
-                                <th style="width:160px">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($news as $item)
-                            <tr>
-                                <td>
-                                    @if($item->image)
-                                        <img src="{{ asset('storage/' . $item->image) }}" class="news-list-thumb" alt="thumb">
-                                    @endif
-                                </td>
-                                <td>{{ $item->title }}</td>
-                                <td>{{ \Illuminate\Support\Carbon::parse($item->published_at ?? $item->created_at)->format('d M Y') }}</td>
-                                <td>
-                                    <a href="{{ route('dashboard.news.edit', $item) }}" class="action-btn btn-edit">Edit</a>
-                                    <form action="{{ route('dashboard.news.destroy', $item) }}" method="POST" style="display:inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="action-btn btn-delete" type="submit" onclick="return confirm('Hapus berita?')">Hapus</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-
-                    <div class="mt-4">{{ $news->links() }}</div>
-                </div>
-            </main>
-
-        </div>
+<div class="panel">
+    <div class="panel-header">
+        <h3 class="panel-title">📰 Daftar Berita</h3>
+        <a href="{{ route('dashboard.news.create') }}" class="btn-primary">+ Buat Berita Baru</a>
     </div>
 
-</body>
-</html>
+    @if($news->count() > 0)
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Gambar</th>
+                        <th>Judul</th>
+                        <th>Tanggal Terbit</th>
+                        <th style="width: 140px;">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($news as $item)
+                        <tr>
+                            <td>
+                                @if($item->image)
+                                    <img src="{{ asset('storage/' . $item->image) }}" class="news-thumb" alt="thumb">
+                                @else
+                                    <div style="width: 60px; height: 60px; background: #e9ecef; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #95a5a6;">
+                                        📷
+                                    </div>
+                                @endif
+                            </td>
+                            <td>
+                                <div style="font-weight: 600; color: #2c3e50;">{{ $item->title }}</div>
+                                <div style="font-size: 0.85rem; color: #95a5a6; margin-top: 0.25rem;">{{ Str::limit($item->content, 50) }}</div>
+                            </td>
+                            <td>{{ \Carbon\Carbon::parse($item->published_at ?? $item->created_at)->format('d M Y') }}</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="{{ route('dashboard.news.edit', $item) }}" class="action-btn btn-edit">✏️ Edit</a>
+                                    <form action="{{ route('dashboard.news.destroy', $item) }}" method="POST" style="display:inline; margin:0;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="action-btn btn-delete" type="submit" onclick="return confirm('Hapus berita ini?')">🗑️ Hapus</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+
+        @if($news->hasPages())
+            <div class="pagination">
+                {{ $news->links() }}
+            </div>
+        @endif
+    @else
+        <div class="empty-state">
+            <div class="empty-state-icon">📭</div>
+            <h4 style="margin: 1rem 0; font-size: 1.1rem;">Belum ada berita</h4>
+            <p>Mulai dengan membuat berita baru untuk mempopulerkan informasi sekolah.</p>
+            <a href="{{ route('dashboard.news.create') }}" class="btn-primary" style="margin-top: 1rem;">+ Buat Berita Pertama</a>
+        </div>
+    @endif
+</div>
+@endsection

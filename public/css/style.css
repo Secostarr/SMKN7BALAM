@@ -857,10 +857,9 @@ nav ul li a:hover{
     bottom: 30px;
     right: 30px;
     background-color: var(--primary, #ECB65F);
-    color: var(--dark, #212529);
-    width: 45px;
-    height: 45px;
-    border: 0;
+    width: 38px;
+    height: 38px;
+    font-size: 24px;
     border-radius: 50%;
     cursor: pointer;
     z-index: 99999 !important;
@@ -869,9 +868,9 @@ nav ul li a:hover{
     justify-content: center;
     
     /* Tombol disembunyikan pakai cara ini */
-    /* opacity: 0;
-    pointer-events: none; Biar gak bisa diklik pas lagi gak muncul */
-    transition: opacity 0.3s ease;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
 }
 
 /* Pas JS nambahin class 'show' */

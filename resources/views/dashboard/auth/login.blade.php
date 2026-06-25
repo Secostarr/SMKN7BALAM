@@ -1,45 +1,45 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login Dashboard - SMKN7</title>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Admin - SMKN 7 Bandar Lampung</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #f5f7fa; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+        .login-card { background: white; width: 100%; max-width: 400px; padding: 2.5rem; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        h1 { font-size: 1.5rem; color: #1a1a2e; margin-bottom: 0.5rem; }
+        p { color: #7f8c8d; margin-bottom: 2rem; font-size: 0.9rem; }
+        .form-group { margin-bottom: 1.25rem; }
+        label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: #2c3e50; font-size: 0.9rem; }
+        input { width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 6px; font-size: 1rem; }
+        input:focus { outline: none; border-color: #ECB65F; box-shadow: 0 0 0 3px rgba(236, 182, 95, 0.1); }
+        button { width: 100%; padding: 0.75rem; background: linear-gradient(135deg, #ECB65F, #d4a657); color: white; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; transition: all 0.3s; }
+        button:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(236, 182, 95, 0.4); }
+        .error { color: #e74c3c; font-size: 0.85rem; margin-bottom: 1rem; background: #fdeaea; padding: 0.5rem; border-radius: 4px; }
+    </style>
 </head>
-<body class="min-h-screen bg-light flex flex-col">
+<body>
+    <div class="login-card">
+        <h1>Login Admin</h1>
+        <p>Masuk untuk mengelola sistem SMKN 7 Bandar Lampung.</p>
 
-    <nav class="bg-primary nav-container">
-        <div class="container nav-container">
-            <a href="{{ route('index') }}" class="logo">SMKN 7 Bandar Lampung</a>
-        </div>
-    </nav>
+        @if($errors->any())
+            <div class="error">⚠️ {{ $errors->first() }}</div>
+        @endif
 
-    <div class="login-wrapper">
-        <div class="login-card">
-            <h1 class="text-2xl font-bold">Login Admin</h1>
-            <p class="text-sm text-muted">Masuk untuk mengelola berita dan pengumuman.</p>
-
-            @if($errors->any())
-                <div class="text-red-600 mb-4">{{ $errors->first() }}</div>
-            @endif
-
-            <form action="{{ route('dashboard.login.post') }}" method="POST">
-                @csrf
-                <div class="mb-4">
-                    <label class="block mb-2 font-semibold">Email</label>
-                    <input type="email" name="email" class="form-input" required>
-                </div>
-                <div class="mb-6">
-                    <label class="block mb-2 font-semibold">Password</label>
-                    <input type="password" name="password" class="form-input" required>
-                </div>
-                <button class="btn-primary">Login</button>
-            </form>
-
-            <p class="text-xs text-muted mt-4">Gunakan kredensial admin untuk mengakses dashboard.</p>
-        </div>
+        <form action="{{ route('dashboard.login.post') }}" method="POST">
+            @csrf
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" name="password" required>
+            </div>
+            <button type="submit">Login</button>
+        </form>
     </div>
-
 </body>
 </html>

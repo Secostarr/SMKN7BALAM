@@ -124,6 +124,33 @@ html{
     }
 }
 
+/* floating subtle motion for icons/cards */
+@keyframes floaty{
+    0%{ transform: translateY(0px) }
+    50%{ transform: translateY(-8px) }
+    100%{ transform: translateY(0px) }
+}
+
+/* small shimmer for hero title */
+@keyframes shimmer{
+    0%{ background-position: -200% 0 }
+    100%{ background-position: 200% 0 }
+}
+
+/* ripple effect for buttons */
+@keyframes rippleAnim{
+    0%{ transform: scale(0); opacity:0.6 }
+    100%{ transform: scale(2.5); opacity:0 }
+}
+
+/* icon micro-bounce */
+@keyframes iconBounce{
+    0%{ transform: translateY(0) }
+    30%{ transform: translateY(-6px) }
+    60%{ transform: translateY(-3px) }
+    100%{ transform: translateY(0) }
+}
+
 .animate-fadeInUp{
     animation:fadeInUp 0.6s ease-out forwards;
 }
@@ -136,6 +163,64 @@ html{
     animation:pulse 2s infinite;
 }
 
+/* new utility animations */
+.animate-floaty{
+    animation:floaty 6s ease-in-out infinite;
+}
+
+.shimmer-title{
+    background: linear-gradient(90deg, rgba(255,255,255,0.0) 0%, rgba(255,255,255,0.45) 50%, rgba(255,255,255,0.0) 100%);
+    background-size:200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color:transparent;
+    animation:shimmer 2.5s linear infinite;
+}
+
+/* button ripple container */
+#btnDaftar{
+    position:relative;
+    overflow:hidden;
+}
+
+.ripple{
+    position:absolute;
+    border-radius:50%;
+    background:rgba(255,255,255,0.75);
+    width:10px;
+    height:10px;
+    transform:scale(0);
+    pointer-events:none;
+    animation:rippleAnim 700ms ease-out forwards;
+}
+
+/* icon subtle motion */
+.card i, .stat-box h3{
+    will-change:transform;
+}
+
+.card i{
+    animation:iconBounce 6s ease-in-out infinite;
+}
+
+/* apply floaty to select larger icons for a lively feeling */
+@media(min-width:768px){
+    .card i{ animation:floaty 6s ease-in-out infinite; }
+}
+
+/* number style for counting */
+.stat-box h3{
+    transition:transform 0.4s ease;
+}
+
+/* subtle transform on reveal */
+.animate-reveal{
+    transform-origin:center;
+}
+
+/* keep existing classes compatible with new effects */
+.animate-fadeInUp, .animate-fadeIn, .animate-pulse{ will-change: opacity, transform }
+
 .container{
     width:90%;
     max-width:1400px;
@@ -143,83 +228,6 @@ html{
     padding:0 20px;
 }
 
-/* NAVBAR */
-
-nav{
-    position:fixed;
-    width:100%;
-    top:0;
-    z-index:1000;
-    background:var(--primary);
-    box-shadow:var(--shadow-md);
-    backdrop-filter:blur(10px);
-    transition:all 0.3s ease;
-}
-
-nav.scrolled{
-    background:rgba(236,182,95,0.95);
-    box-shadow:var(--shadow-lg);
-}
-
-.nav-container{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:20px 0;
-}
-
-.logo{
-    font-weight:bold;
-    font-size:1.5rem;
-    color:var(--dark);
-    text-decoration:none;
-    transition:color 0.3s ease;
-}
-
-.logo:hover{
-    color:var(--dark);
-}
-
-nav ul{
-    display:flex;
-    list-style:none;
-    gap:30px;
-}
-
-nav ul li{
-    margin:0;
-}
-
-nav ul li a{
-    text-decoration:none;
-    color:var(--dark);
-    font-weight:600;
-    font-size:1rem;
-    position:relative;
-    padding:5px 0;
-    transition:color 0.3s ease;
-}
-
-nav ul li a::after{
-    content:'';
-    position:absolute;
-    bottom:0;
-    left:0;
-    width:0;
-    height:2px;
-    background:var(--accent);
-    transition:width 0.3s ease;
-}
-
-nav ul li a:hover::after{
-    width:100%;
-}
-
-nav ul li a:hover{
-    color:var(--accent);
-}
-
-/* HERO */
 
 #hero{
     min-height:100vh;
@@ -254,7 +262,7 @@ nav ul li a:hover{
     left:0;
     right:0;
     bottom:0;
-    background:url('https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1600&q=80');
+    background:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNeCM5xQ_zom3eFF4h6J_ICBzRIyTIkIIvYQ&s');
     background-size:cover;
     background-position:center;
     opacity:0.15;
@@ -641,7 +649,7 @@ footer p{
     }
 
     blockquote{
-        padding:35px 25px;
+        padding:34px 25px;
     }
 
     blockquote::before{
@@ -716,4 +724,163 @@ footer p{
     blockquote p{
         font-size:1rem;
     }
+}
+
+/* SCROLL-BASED VISUALS */
+
+/* Progress bar at top to indicate scroll position */
+.progress-container{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:4px;
+    z-index:2000;
+    pointer-events:none;
+    background:transparent;
+}
+
+.progress-bar{
+    width:0%;
+    height:100%;
+    background:linear-gradient(90deg,var(--accent),var(--primary));
+    transition:width 120ms linear;
+}
+
+/* Slide in from left / right for sections */
+@keyframes slideInLeft{
+    from{ opacity:0; transform:translateX(-30px); }
+    to{ opacity:1; transform:translateX(0); }
+}
+
+@keyframes slideInRight{
+    from{ opacity:0; transform:translateX(30px); }
+    to{ opacity:1; transform:translateX(0); }
+}
+
+.slide-in-left{ animation:slideInLeft 0.75s cubic-bezier(0.22,1,0.36,1) forwards; }
+.slide-in-right{ animation:slideInRight 0.75s cubic-bezier(0.22,1,0.36,1) forwards; }
+
+/* simple fade + move for initial hidden sections */
+.scroll-fade{ opacity:0; transform:translateY(20px); transition:opacity 0.6s ease, transform 0.6s ease; }
+.scroll-revealed{ opacity:1; transform:translateY(0); }
+
+/* parallax hint for sections (JS will use translateY for smoother mobile behavior) */
+.parallax{ background-size:cover; background-position:center; }
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .slide-in-left, .slide-in-right, .animate-floaty, .animate-pulse, .shimmer-title { animation:none !important; }
+  .progress-bar{ transition:none !important; }
+}
+/* NAVBAR */
+
+nav{
+    position:fixed;
+    width:100%;
+    top:0;
+    z-index:1000;
+    background:var(--primary);
+    box-shadow:var(--shadow-md);
+    backdrop-filter:blur(10px);
+    transition:all 0.3s ease;
+}
+
+nav.scrolled{
+    background:rgba(236,182,95,0.95);
+    box-shadow:var(--shadow-lg);
+}
+
+.nav-container{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 0;
+}
+
+.logo{
+    font-weight:bold;
+    font-size:1.5rem;
+    color:var(--dark);
+    text-decoration:none;
+    transition:color 0.3s ease;
+}
+
+.logo:hover{
+    color:var(--dark);
+}
+
+nav ul{
+    display:flex;
+    list-style:none;
+    gap:30px;
+}
+
+nav ul li{
+    margin:0;
+}
+
+nav ul li a{
+    text-decoration:none;
+    color:var(--dark);
+    font-weight:600;
+    font-size:1rem;
+    position:relative;
+    padding:5px 0;
+    transition:color 0.3s ease;
+}
+
+nav ul li a::after{
+    content:'';
+    position:absolute;
+    bottom:0;
+    left:0;
+    width:0;
+    height:2px;
+    background:var(--accent);
+    transition:width 0.3s ease;
+}
+
+nav ul li a:hover::after{
+    width:100%;
+}
+
+nav ul li a:hover{
+    color:var(--accent);
+}
+
+/* HERO */
+
+/* SCRL BTN */
+.btn-scroll-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: var(--primary, #ECB65F);
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 99999 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    /* Tombol disembunyikan pakai cara ini */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+/* Pas JS nambahin class 'show' */
+.btn-scroll-top.show {
+    opacity: 1 !important;
+    pointer-events: auto !important; 
+}
+
+/* Efek pas disorot mouse */
+.btn-scroll-top:hover {
+    background-color: var(--dark, #212529);
+    color: var(--primary, #ECB65F);
+    transform: translateY(-5px);
 }

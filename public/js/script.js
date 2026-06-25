@@ -1,17 +1,41 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    const scrollBtn = document.getElementById("scrollTopBtn");
+    const btnDaftar = document.getElementById('btnDaftar');
 
-    window.addEventListener("scroll", () => {
-        if (window.scrollY > 300) {
-            scrollBtn.classList.add("show");
-        } else {
-            scrollBtn.classList.remove("show");
-        }
-    });
+    if (btnDaftar) {
+        btnDaftar.addEventListener('click', (e) => {
 
-    scrollBtn.addEventListener("click", () => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
+            // ripple effect
+            createRipple(e, btnDaftar);
+
+            alert(
+                'Terima kasih telah tertarik bergabung dengan SMKN 7 Bandar Lampung. Halaman pendaftaran akan segera tersedia.'
+            );
+
+        });
+    }
+
+    const links = document.querySelectorAll('nav a');
+
+    links.forEach(link => {
+
+        link.addEventListener('click', function(e){
+
+            const href = this.getAttribute('href');
+            if (!href || !href.startsWith('#')) return;
+
+            const target = document.querySelector(href);
+
+            if (!target) return;
+
+            e.preventDefault();
+
+            target.scrollIntoView({
+                behavior:'smooth'
+            });
+
+        });
+
     });
 
 

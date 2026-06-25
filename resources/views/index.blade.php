@@ -21,7 +21,7 @@
 <nav class="bg-primary text-gray-900 shadow-md fixed w-full z-10 top-0" id="navbar">
     <div class="container mx-auto px-6 py-4 flex justify-between items-center">
         <div class="text-2xl font-bold">
-            <a id="scrollTopBtn">SMKN 7 Bandar Lampung</a>
+            <a href="#hero">SMKN 7 Bandar Lampung</a>
         </div>
 
         <!-- Mobile Menu Button -->
@@ -415,26 +415,53 @@
         });
     });
 
-        const scrollDwn = document.getElementById("scrlDwn");
+    const scrollDwn = document.getElementById("scrlDwn");
 
-    scrollDwn.addEventListener("click", () => {
-    // Cari elemen dengan ID "hero"
-    const heroSection = document.getElementById("tentang");
-    
-    // Scroll mulus ke elemen tersebut
-    heroSection.scrollIntoView({
-        behavior: "smooth"
-    });
-});
+    if (scrollDwn) {
+        scrollDwn.addEventListener("click", () => {
+            const tentangSection = document.getElementById("tentang");
+
+            if (tentangSection) {
+                tentangSection.scrollIntoView({
+                    behavior: "smooth"
+                });
+            }
+        });
+    }
 </script>
 
 <script src="{{ asset('js/script.js') }}"></script>
 
-<button id="scrollTopBtn" class="btn-scroll-top" title="Kembali ke atas">
+<button id="backToTopBtn" class="btn-scroll-top" type="button" title="Kembali ke atas" aria-label="Kembali ke atas">
     ↑
 </button>
 
 
+<script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+    const scrollBtn = document.getElementById("backToTopBtn");
+
+    if (!scrollBtn) {
+        return;
+    }
+
+    const toggleScrollButton = () => {
+        scrollBtn.classList.toggle("show", window.scrollY > 300);
+    };
+
+    window.addEventListener("scroll", toggleScrollButton, { passive: true });
+    toggleScrollButton();
+
+    scrollBtn.addEventListener("click", () => {
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: "smooth"
+        });
+    });
+});
+</script>
 
 </body>
 </html>

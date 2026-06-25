@@ -2,31 +2,44 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WebsiteController;
-use App\Http\Controllers\Dashboard\NewsController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Dashboard\AuthController;
+use App\Http\Controllers\Dashboard\NewsController;
 use App\Http\Controllers\Dashboard\TestimonialController;
 use App\Http\Controllers\Dashboard\UserController;
+use App\Http\Controllers\Dashboard\DashboardController;
 
-// Route Halaman Utama (Landing Page)
-Route::get('/', [WebsiteController::class, "index"])->name('index');
+/*
+|--------------------------------------------------------------------------
+| Public Routes
+|--------------------------------------------------------------------------
+*/
 
-// Login routes for dashboard
-Route::get('dashboard/login', [AuthController::class, 'showLogin'])->name('dashboard.login');
-Route::post('dashboard/login', [AuthController::class, 'login'])->name('dashboard.login.post');
-Route::post('/contact-send', [\App\Http\Controllers\ContactController::class, 'send'])->name('contact.send');
+Route::get('/', [WebsiteController::class, 'index'])->name('index');
+Route::post('/contact-send', [ContactController::class, 'send'])->name('contact.send');
 
+/*
+|--------------------------------------------------------------------------
+| Dashboard Auth (Guest)
+|--------------------------------------------------------------------------
+*/
 
-// Protected dashboard routes (Wajib Login)
-Route::prefix('dashboard')->middleware(\App\Http\Middleware\AdminAuth::class)->group(function () {
-    
-    Route::get('/', function () {
-        return view('dashboard.index');
-    })->name('dashboard.index');
+Route::prefix('dashboard')->middleware('guest')->group(function () {
+    Route::get('/login', [AuthController::class, 'showLogin'])->name('dashboard.login');
+    Route::post('/login/auth', [AuthController::class, 'login'])->name('dashboard.login.post');
+});
 
-    Route::resource('news', NewsController::class, ['as' => 'dashboard']);
-    Route::resource('users', UserController::class, ['as' => 'dashboard']);
-    
-    // Route Testimonials sekarang udah aman di dalam sini
-    Route::resource('testimonials', TestimonialController::class, ['as' => 'dashboard']);
-    Route::post('dashboard/logout', [AuthController::class, 'logout'])->name('dashboard.logout');
+/*
+|--------------------------------------------------------------------------
+| Dashboard Protected Routes (Auth)
+|--------------------------------------------------------------------------
+*/
+
+Route::prefix('dashboard')->middleware('auth')->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
+    Route::post('logout', [AuthController::class, 'logout'])->name('dashboard.logout');
+
+    Route::resource('news', NewsController::class)->names('dashboard.news');
+    Route::resource('testimonials', TestimonialController::class)->names('dashboard.testimonials');
+    Route::resource('users', UserController::class)->names('dashboard.users');
 });

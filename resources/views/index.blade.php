@@ -16,7 +16,7 @@
 <nav class="bg-primary text-gray-900 shadow-md fixed w-full z-10 top-0" id="navbar">
     <div class="container mx-auto px-6 py-4 flex justify-between items-center">
         <div class="text-2xl font-bold">
-            <a id="scrollTopBtn">SMKN 7 Bandar Lampung</a>
+            <a id="navBrand" href="#">SMKN 7 Bandar Lampung</a>
         </div>
 
         <!-- Mobile Menu Button -->

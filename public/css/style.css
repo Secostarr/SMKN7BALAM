@@ -857,8 +857,9 @@ nav ul li a:hover{
     bottom: 30px;
     right: 30px;
     background-color: var(--primary, #ECB65F);
-    width: 45px;
-    height: 45px;
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
     border-radius: 50%;
     cursor: pointer;
     z-index: 99999 !important;
@@ -869,7 +870,7 @@ nav ul li a:hover{
     /* Tombol disembunyikan pakai cara ini */
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 /* Pas JS nambahin class 'show' */
